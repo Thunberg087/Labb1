@@ -20,6 +20,7 @@ const Home = () => {
 
     axios.get('https://v6.exchangerate-api.com/v6/e3bff0be5dabd157960ea887/latest/USD')
       .then(res => {
+        console.log(res.data);
         setConversionRates(res.data.conversion_rates)
         setConversionRatesDropdown(res.data.conversion_rates)
       })
@@ -69,14 +70,18 @@ const Home = () => {
                 <select name="queryCurrency" id="queryCurrency" onChange={event => {
                   setQueryCurrency(event.target.value)
                 }}>
-                  {Object.entries(conversionRatesDropdown)
-                    .map(([key]) => {
-                      return (
-                        <option key={key} value={key}>
-                          {key}
-                        </option>
-                      )
-                    })}
+                  {conversionRatesDropdown &&
+
+                    Object.entries(conversionRatesDropdown)
+                      .map(([key]) => {
+                        return (
+                          <option key={key} value={key}>
+                            {key}
+                          </option>
+                        )
+                      })
+
+                  }
                 </select>
                 {errors.amount}
               </form>
